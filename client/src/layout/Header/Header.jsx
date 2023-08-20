@@ -12,6 +12,7 @@ class Header extends Component {
         <div className="container">
           <div className={styles.wrapper}>
             <h2>Store</h2>
+            <nav></nav>
           </div>
         </div>
       </header>
