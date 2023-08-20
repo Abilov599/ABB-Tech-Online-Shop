@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import styles from "./Modal.module.scss";
 
 class Modal extends Component {
@@ -21,6 +22,14 @@ class Modal extends Component {
     ) : null;
   }
 }
+
+Modal.propTypes = {
+  header: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  actions: PropTypes.element.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export { Modal };
 

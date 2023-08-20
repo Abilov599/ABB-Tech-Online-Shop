@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-// import React, { useState } from "react";
-import { Button } from "./components/Button";
-import { Modal } from "./components/Modal";
-
+import { Button, Modal } from "./components";
 class App extends Component {
   constructor(props) {
     super(props);

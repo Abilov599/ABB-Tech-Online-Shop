@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import styles from "./Button.module.scss";
 
 class Button extends Component {
@@ -18,6 +19,12 @@ class Button extends Component {
     );
   }
 }
+
+Button.propTypes = {
+  bgColor: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 export { Button };
 
