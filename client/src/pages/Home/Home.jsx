@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button } from "../../components";
+import { Card } from "../../components";
 import styles from "./Home.module.scss";
 
 class Home extends Component {
@@ -11,6 +11,7 @@ class Home extends Component {
       error: null,
     };
   }
+
   componentDidMount() {
     fetch("../../data.json")
       .then((response) => response.json())
@@ -27,14 +28,11 @@ class Home extends Component {
         });
       });
   }
-  showHideModal = (modalName) => {
-    this.setState((prevState) => ({
-      [modalName]: !prevState[modalName],
-    }));
-  };
 
   render() {
     const { data, isLoading, error } = this.state;
+
+    const { favorites, cart, setToLocalStorage } = this.props;
 
     const { products } = data;
 
@@ -42,19 +40,32 @@ class Home extends Component {
       return <p>Error: {error.message}</p>;
     }
     return (
-      <section className={styles.home}>
+      <main className={styles.home}>
         <div className="container">
           {isLoading ? (
-            <p>Loading...</p>
+            <p className={styles.text}>Loading...</p>
           ) : (
-            <ul>
+            <div className={styles.row}>
               {products.map((item) => {
-                return <li key={item.id}>{item.Name}</li>;
+                return (
+                  <Card
+                    key={item.id}
+                    item={item}
+                    name={item.name}
+                    price={item.price}
+                    imageURL={item.imageURL}
+                    sku={item.sku}
+                    backgroundColor={item.backgroundColor}
+                    favorites={favorites}
+                    cart={cart}
+                    setToLocalStorage={setToLocalStorage}
+                  />
+                );
               })}
-            </ul>
+            </div>
           )}
         </div>
-      </section>
+      </main>
     );
   }
 }

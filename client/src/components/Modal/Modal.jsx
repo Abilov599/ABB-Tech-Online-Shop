@@ -7,13 +7,15 @@ class Modal extends Component {
     super(props);
   }
   render() {
-    const { header, isOpen, text, actions, onClick } = this.props;
+    const { header, isOpen, text, actions, onClick, closeBtn } = this.props;
     return isOpen ? (
       <div className={styles["modal-overlay"]}>
         <div className={styles["modal-content"]}>
-          <button className={styles["close-button"]} onClick={onClick}>
-            X
-          </button>
+          {!!closeBtn && (
+            <button className={styles["close-button"]} onClick={onClick}>
+              X
+            </button>
+          )}
           <h2>{header}</h2>
           <p>{text}</p>
           <div className={styles["modal-actions"]}>{actions}</div>
@@ -32,20 +34,3 @@ Modal.propTypes = {
 };
 
 export { Modal };
-
-// const Modal = ({ header, isOpen, text, actions, onClick }) => {
-//   return isOpen ? (
-//     <div className={styles["modal-overlay"]}>
-//       <div className={styles["modal-content"]}>
-//           <button className={styles["close-button"]} onClick={onClick}>
-//             X
-//           </button>
-//         <h2>{header}</h2>
-//         <p>{text}</p>
-//         <div className={styles["modal-actions"]}>{actions}</div>
-//       </div>
-//     </div>
-//   ) : null;
-// };
-
-// export { Modal };

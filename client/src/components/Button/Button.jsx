@@ -27,17 +27,3 @@ Button.propTypes = {
 };
 
 export { Button };
-
-// const Button = ({ text, bgColor, onClick }) => {
-//   return (
-//     <button
-//       style={{ backgroundColor: bgColor }}
-//       onClick={onClick}
-//       className={styles["btn"]}
-//     >
-//       {text}
-//     </button>
-//   );
-// };
-
-// export { Button };
