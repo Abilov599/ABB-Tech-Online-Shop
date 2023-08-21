@@ -31,13 +31,25 @@ class Card extends Component {
       imageURL,
       sku,
       backgroundColor,
-      item: product,
+      item,
       setToLocalStorage,
       favorites,
       cart,
     } = this.props;
 
     const { showCartModal, showFavoritesModal } = this.state;
+
+    const checkAddedToFavorites = () => {
+      return favorites.some((favItem) => favItem.id === item.id)
+        ? "Remove from favorites"
+        : "Add to favorites";
+    };
+    const checkAddedToCart = () => {
+      return cart.some((favItem) => favItem.id === item.id)
+        ? "Remove from cart"
+        : "Add to cart";
+    };
+    console.log(favorites);
     return (
       <div className={styles.productCard} style={{ backgroundColor }}>
         <img className={styles.image} src={imageURL} alt={name} />
@@ -46,11 +58,11 @@ class Card extends Component {
         <p className={styles.sku}>SKU: {sku}</p>
         <div className={styles.buttons}>
           <Modal
-            header={"Favorites"}
+            header={"Are you sure?"}
             text={
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, quam facere officia totam quis tempore voluptatibus labore ullam eum dolorum?"
             }
-            product={product}
+            item={item}
             isOpen={showFavoritesModal}
             closeBtn={true}
             onClick={() => this.showHideModal("showFavoritesModal")}
@@ -58,11 +70,11 @@ class Card extends Component {
               <>
                 <Button
                   bgColor="#4285F4"
-                  text="Add to favorites"
-                  product={product}
+                  text={checkAddedToFavorites()}
+                  item={item}
                   onClick={() =>
                     this.toggleAdding("showFavoritesModal", () =>
-                      setToLocalStorage(product, "favorites")
+                      setToLocalStorage(item, "favorites")
                     )
                   }
                 />
@@ -73,7 +85,8 @@ class Card extends Component {
             text={
               "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptatem, ad corrupti aperiam labore quae quidem, eum soluta sequi ipsum vel quam laborum fugit minima quo odio sit enim praesentium."
             }
-            header={"Cart"}
+            header={"Are you sure?"}
+            content
             closeBtn={true}
             isOpen={showCartModal}
             onClick={() => this.showHideModal("showCartModal")}
@@ -81,10 +94,10 @@ class Card extends Component {
               <>
                 <Button
                   bgColor="#4285F4"
-                  text="Add to cart"
+                  text={checkAddedToCart()}
                   onClick={() =>
                     this.toggleAdding("showCartModal", () =>
-                      setToLocalStorage(product, "cart")
+                      setToLocalStorage(item, "cart")
                     )
                   }
                 />
@@ -92,12 +105,12 @@ class Card extends Component {
             }
           />
           <Button
-            text={"Favorites"}
+            text={checkAddedToFavorites()}
             bgColor={"#F9A825"}
             onClick={() => this.showHideModal("showFavoritesModal")}
           />
           <Button
-            text={"Cart"}
+            text={checkAddedToCart()}
             bgColor={"#4285F4"}
             onClick={() => this.showHideModal("showCartModal")}
           />
