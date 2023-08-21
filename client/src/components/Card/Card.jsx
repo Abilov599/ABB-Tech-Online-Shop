@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./Card.module.scss";
-import { Modal } from "../Modal/Modal";
-import { Button } from "../Button/Button";
+import { Modal, Button } from "..";
 
 class Card extends Component {
   constructor(props) {
