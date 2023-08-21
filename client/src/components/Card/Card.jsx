@@ -45,7 +45,7 @@ class Card extends Component {
         : "Add to favorites";
     };
     const checkAddedToCart = () => {
-      return cart.some((favItem) => favItem.id === item.id)
+      return cart.some((cartItem) => cartItem.id === item.id)
         ? "Remove from cart"
         : "Add to cart";
     };
