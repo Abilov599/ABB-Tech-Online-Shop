@@ -24,11 +24,9 @@ class Layout extends Component {
     if (existingIndex !== -1) {
       // Remove the product
       items.splice(existingIndex, 1);
-      console.log(`Product removed from ${itemsName}: `, product);
     } else {
       // Add the product
       items.push(product);
-      console.log(`Product added to ${itemsName}: `, product);
     }
 
     localStorage.setItem(itemsName, JSON.stringify(items));

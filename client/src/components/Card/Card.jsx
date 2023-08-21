@@ -49,7 +49,6 @@ class Card extends Component {
         ? "Remove from cart"
         : "Add to cart";
     };
-    console.log(favorites);
     return (
       <div className={styles.productCard} style={{ backgroundColor }}>
         <img className={styles.image} src={imageURL} alt={name} />
