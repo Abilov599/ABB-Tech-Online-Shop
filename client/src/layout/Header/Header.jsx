@@ -13,6 +13,14 @@ class Header extends Component {
         <div className="container">
           <div className={styles.wrapper}>
             <h1 className={styles.siteName}>Store</h1>
+            <div className={styles.icons}>
+              <div className={styles.icon}>
+                <span>Favorites: {favorites.length}</span>
+              </div>
+              <div className={styles.icon}>
+                <span>Cart: {cart.length}</span>
+              </div>
+            </div>
           </div>
         </div>
       </header>
