@@ -94,9 +94,7 @@ class Home extends Component {
                       </>
                     </Card>
                     <Modal
-                      text={
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptatem, ad corrupti aperiam labore quae quidem, eum soluta sequi ipsum vel quam laborum fugit minima quo odio sit enim praesentium."
-                      }
+                      text={`This item will be added to your cart`}
                       header={"Are you sure?"}
                       closeBtn={true}
                       isOpen={showModal} // Pass the modal visibility as prop
