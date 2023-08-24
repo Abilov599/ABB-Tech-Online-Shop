@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Card } from "../../components";
+import PropTypes from "prop-types";
+import { Button, Card, Modal } from "../../components";
 import styles from "./Home.module.scss";
 
 class Home extends Component {
@@ -9,6 +10,8 @@ class Home extends Component {
       data: [],
       isLoading: true,
       error: null,
+      showModal: false, // Add a state for modal visibility
+      selectedItem: null, // Store the selected item for the modal
     };
   }
 
@@ -29,11 +32,26 @@ class Home extends Component {
       });
   }
 
+  // Function to toggle the modal visibility and set the selected item
+  toggleModal = (item) => {
+    this.setState((prevState) => ({
+      showModal: !prevState.showModal,
+      selectedItem: item,
+    }));
+  };
+
+  addToCartAndCloseModal = (item) => {
+    const { setToLocalStorage } = this.props;
+    setToLocalStorage(item, "cart");
+    this.setState({
+      showModal: false,
+      selectedItem: null,
+    });
+  };
+
   render() {
-    const { data, isLoading, error } = this.state;
-
-    const { favorites, cart, setToLocalStorage } = this.props;
-
+    const { data, isLoading, error, showModal, selectedItem } = this.state;
+    const { favorites, setToLocalStorage } = this.props;
     const { products } = data;
 
     if (error) {
@@ -47,19 +65,52 @@ class Home extends Component {
           ) : (
             <div className={styles.row}>
               {products.map((item) => {
+                const checkAddedToFavorites = () => {
+                  return favorites.some((favItem) => favItem.id === item.id)
+                    ? "Remove from favorites"
+                    : "Add to favorites";
+                };
                 return (
-                  <Card
-                    key={item.id}
-                    item={item}
-                    name={item.name}
-                    price={item.price}
-                    imageURL={item.imageURL}
-                    sku={item.sku}
-                    backgroundColor={item.backgroundColor}
-                    favorites={favorites}
-                    cart={cart}
-                    setToLocalStorage={setToLocalStorage}
-                  />
+                  <React.Fragment key={item.id}>
+                    <Card
+                      name={item.name}
+                      price={item.price}
+                      imageURL={item.imageURL}
+                      sku={item.sku}
+                      backgroundColor={item.backgroundColor}
+                    >
+                      <>
+                        <Button
+                          bgColor="#F9A825"
+                          text={checkAddedToFavorites()}
+                          item={item}
+                          onClick={() => setToLocalStorage(item, "favorites")}
+                        />
+                        <Button
+                          text={"Add to cart"}
+                          bgColor={"#4285F4"}
+                          onClick={() => this.toggleModal(item)} // Open modal
+                        />
+                      </>
+                    </Card>
+                    <Modal
+                      text={
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptatem, ad corrupti aperiam labore quae quidem, eum soluta sequi ipsum vel quam laborum fugit minima quo odio sit enim praesentium."
+                      }
+                      header={"Are you sure?"}
+                      closeBtn={true}
+                      isOpen={showModal} // Pass the modal visibility as prop
+                      onClick={() => this.toggleModal(null)} // Close modal
+                    >
+                      <Button
+                        bgColor="#4285F4"
+                        text={"Add to cart"}
+                        onClick={() => {
+                          this.addToCartAndCloseModal(selectedItem, "cart");
+                        }}
+                      />
+                    </Modal>
+                  </React.Fragment>
                 );
               })}
             </div>
@@ -69,5 +120,11 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  favorites: PropTypes.array.isRequired,
+  cart: PropTypes.array.isRequired,
+  setToLocalStorage: PropTypes.func.isRequired,
+};
 
 export { Home };

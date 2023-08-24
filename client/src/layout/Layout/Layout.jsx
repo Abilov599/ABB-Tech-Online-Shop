@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Header, Footer } from "..";
 import { Home } from "../../pages";
 
@@ -21,7 +21,7 @@ class Layout extends Component {
 
     const existingIndex = items.findIndex((item) => item.id === product.id);
 
-    if (existingIndex !== -1) {
+    if (existingIndex !== -1 && itemsName === "favorites") {
       // Remove the product
       items.splice(existingIndex, 1);
     } else {
